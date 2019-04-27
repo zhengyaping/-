@@ -34,8 +34,12 @@ Game.prototype.start=function () {
     this.apple = new Apple(this);
     this.snakeb = new Snakeb(this);
     this.f=0;
+    this.count=0;
     this.timer=setInterval(function () {
         self.ctx.clearRect(0, 0, 660, 660);
+        self.ctx.fillStyle = "white";
+        self.ctx.font="bold 20px 黑体";
+        self.ctx.fillText("分数:"+self.count, 580, 20); 
         self.f++;
         self.ctx.fillStyle = "white";
         self.ctx.fillText(self.f, 10, 20); 
@@ -57,28 +61,24 @@ Game.prototype.bindEvent=function () {
     document.onkeydown = function (e) {
             if (e.keyCode == 37) {
                 self.snake.fangxiang = 1;
-                self.snake.img = self.snake.game.R.snake1;
-                self.snake.x -= self.snake.sudu;
-                self.snake.fangxiang=1;
                 self.snake.dong();
+                self.snakeb.fangxiang = 1;
+                self.snakeb.dong();
             } else if (e.keyCode == 38) {
                 self.snake.fangxiang = 3;
-                self.snake.img = self.snake.game.R.snake3;
-                self.snake.fangxiang=1;
-                self.snake.y -= self.snake.sudu;
                 self.snake.dong();
+                self.snakeb.fangxiang = 3;
+                self.snakeb.dong();
             } else if (e.keyCode == 39) {
                 self.snake.fangxiang = 2;
-                self.snake.img = self.snake.game.R.snake2;
-                self.snake.fangxiang=1;
-                self.snake.x += self.snake.sudu;
                 self.snake.dong();
+                self.snakeb.fangxiang = 2;
+                self.snakeb.dong();
             } else if (e.keyCode == 40) {
                 self.snake.fangxiang = 0;
-                self.snake.img = self.snake.game.R.snake0;
-                self.snake.fangxiang = 1;
-                self.snake.y += self.snake.sudu;
                 self.snake.dong();
+                self.snakeb.fangxiang = 0;
+                self.snakeb.dong();
             }
         }
 }
