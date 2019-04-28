@@ -29,10 +29,15 @@ for(var k in this.R){
 }
 Game.prototype.start=function () {
     var self = this;
+    this.audio=document.getElementById("audio");
+    this.audio1=document.getElementById("audio1");
+    this.audio2=document.getElementById("audio2");
     this.map = new Map(this);
     this.snake = new Snake(this);
-    this.apple = new Apple(this);
-    this.snakeb = new Snakeb(this);
+    this.apple=[];
+    this.apple1=new Apple(this);
+    this.snakeb=[];
+    this.snakeb1 = new Snakeb(this);
     this.f=0;
     this.count=0;
     this.timer=setInterval(function () {
@@ -49,36 +54,47 @@ Game.prototype.start=function () {
         self.snake.update();
         self.snake.render();
 
-        self.apple.update();
-        self.apple.render();
-
-        self.snakeb.update();
-        self.snakeb.render();
+        for(var i = 0 ; i < self.apple.length ; i++){
+            self.apple[i].update();
+            self.apple[i] && self.apple[i].render();
+        }
+        for(var i = 0 ; i < self.snakeb.length ; i++){
+            self.snakeb[i].update();
+            self.snakeb[i] && self.snakeb[i].render();
+        }
      },20)
 }
 Game.prototype.bindEvent=function () {
     var self = this;
     document.onkeydown = function (e) {
-            if (e.keyCode == 37) {
-                self.snake.fangxiang = 1;
-                self.snake.dong();
-                self.snakeb.fangxiang = 1;
-                self.snakeb.dong();
+        if (e.keyCode == 37) {
+            self.snake.fangxiang = 1;
+            self.snake.dong();
+            self.snakeb.forEach(item => {
+                item.dong();
+                item.fangxiang = 1;
+            })
             } else if (e.keyCode == 38) {
                 self.snake.fangxiang = 3;
                 self.snake.dong();
-                self.snakeb.fangxiang = 3;
-                self.snakeb.dong();
+                self.snakeb.forEach(item => {
+                    item.dong();
+                    item.fangxiang = 3;
+                })
             } else if (e.keyCode == 39) {
                 self.snake.fangxiang = 2;
                 self.snake.dong();
-                self.snakeb.fangxiang = 2;
-                self.snakeb.dong();
+                self.snakeb.forEach(item => {
+                    item.dong();
+                    item.fangxiang = 2;
+                })
             } else if (e.keyCode == 40) {
                 self.snake.fangxiang = 0;
                 self.snake.dong();
-                self.snakeb.fangxiang = 0;
-                self.snakeb.dong();
+                self.snakeb.forEach(item => {
+                    item.dong();
+                    item.fangxiang = 0;
+                })
             }
         }
 }
